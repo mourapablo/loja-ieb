@@ -1,10 +1,9 @@
 import React from 'react';
-import logo from '../img/logo.png'; // Substitua pelo caminho da sua logomarca
+import logo from '../img/logo.png';
 import login from '../img/login.png';
-import carrinho from '../img/carrinho.png';
-import '../App.css';
+import carrinhoIcon from '../img/carrinho.png';
 
-const Header = ({ onLoginClick }) => {
+const Header = ({ onLoginClick, onCarrinhoClick, totalItens }) => {
     return (
         <header style={styles.header}>
             <div style={styles.logoContainer}>
@@ -15,13 +14,13 @@ const Header = ({ onLoginClick }) => {
                 <h3 style={styles.subtitle}>BATISTA NO CORDEIRO</h3>
             </div>
             <div style={styles.navContainer}>
-                <img 
-                    src={login} 
-                    alt="Login" 
-                    style={styles.icon} 
-                    onClick={onLoginClick} // Chama a função ao clicar
-                />
-                <img src={carrinho} alt="Carrinho de compra" style={styles.icon} />
+                <img src={login} alt="Login" style={styles.icon} onClick={onLoginClick} />
+                <div style={styles.carrinhoWrapper} onClick={onCarrinhoClick}>
+                    <img src={carrinhoIcon} alt="Carrinho" style={styles.icon} />
+                    {totalItens > 0 && (
+                        <span style={styles.badge}>{totalItens}</span>
+                    )}
+                </div>
             </div>
         </header>
     );
@@ -32,51 +31,62 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        fontFamily: 'Playfair Display, serif',
         padding: '20px',
         backgroundColor: 'rgba(254, 251, 251, 0.98)',
-        boxShadow: '0 2px 50px rgba(14, 2, 2, 0.45)',
         height: '100px',
         borderBottom: '40px solid rgb(49, 3, 114)',
-        flexWrap: 'nowrap', // Impede a quebra de linha
     },
     logoContainer: {
-        flex: '0 0 auto',
         display: 'flex',
-        justifyContent: 'flex-start',
-        marginRight: '20px',
     },
     logo: {
         height: '100px',
     },
     titleContainer: {
         display: 'flex',
-        flexDirection: 'column', // Coloca o h3 embaixo do h1
-        alignItems: 'center', // Centraliza o texto
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: '5px', // Ajuste para reduzir a distância
+        
     },
     title: {
-        fontFamily: 'Playfair Display, serif',
-        fontSize: '29px',
-        color: '#333',
-        margin: '0',
-        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)',
+        fontSize: '28px',
+        marginBottom: '-10px', // Reduzir a margem inferior
+        color: ' rgba(46, 0, 91, 0.99)',
+        textShadow: '0 0px 3px rgba(14, 2, 2, 0.45)',
+      
     },
+
     subtitle: {
-        fontFamily: 'Playfair Display, serif',
-        fontSize: '18px',
-        color: '#333',
-        margin: '5px 0 0 0',
-        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.2)',
+        fontSize: '20px',
+        color: 'rgba(46, 0, 92, 0.99)',
+        marginBottom: '10px', // Reduzir a margem inferior
+        textShadow: '0 0px 3px rgba(14, 2, 2, 0.45)',
     },
     navContainer: {
         display: 'flex',
-        gap: '15px',
         alignItems: 'center',
-        flex: '0 0 auto',
+        gap: '15px',
     },
     icon: {
         width: '40px',
         height: '40px',
         cursor: 'pointer',
+    },
+    carrinhoWrapper: {
+        position: 'relative',
+    },
+    badge: {
+        position: 'absolute',
+        top: '-5px',
+        right: '-10px',
+        backgroundColor: 'red',
+        color: 'white',
+        borderRadius: '50%',
+        padding: '2px 6px',
+        fontSize: '12px',
+        fontWeight: 'bold',
     },
 };
 

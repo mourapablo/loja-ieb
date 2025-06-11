@@ -9,6 +9,8 @@ import React, { useState } from 'react';
 function App() {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isCadastroVisible, setIsCadastroVisible] = useState(false);
+  const [mostrarCarrinho, setMostrarCarrinho] = useState(false); // Declare a variável
+  const [totalItens, setTotalItens] = useState(0); // Declare a variável
 
   const handleLoginClick = () => {
     setIsLoginVisible(true); // Exibe o modal de login
@@ -29,7 +31,11 @@ function App() {
 
   return (
     <div className="App">
-      <Header onLoginClick={handleLoginClick} />
+      <Header
+        onLoginClick={handleLoginClick}
+        onCarrinhoClick={() => setMostrarCarrinho(prev => !prev)}
+        totalItens={totalItens}
+      />
       <Navbar />
       {isLoginVisible && (
         <Login onClose={handleCloseModals} onLogin={handleLoginSuccess} />
@@ -37,7 +43,13 @@ function App() {
       {isCadastroVisible && (
         <Cadastro onClose={handleCloseModals} />
       )}
-      <Catalogo />
+      
+      <Catalogo
+        mostrarCarrinho={mostrarCarrinho}
+        onToggleCarrinho={() => setMostrarCarrinho(prev => !prev)}
+        totalItens={totalItens}
+        onAtualizarTotal={setTotalItens}
+      />
     </div>
   );
 }
